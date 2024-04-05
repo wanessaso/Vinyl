@@ -4,16 +4,18 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
-    <title>Meteo App</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <title>Wanessa App</title>
   </head>
   <body>
     <div class="weather-app">
       <header>
-        <form class="search-form">
+        <form class="search-form" id="search-form">
           <input
             type="search"
             placeholder="Enter a city..."
             required
+            id="search-form-input"
             class="search-form-input"
           />
           <input type="submit" value="Search" class="search-form-button" />
@@ -22,8 +24,8 @@
       <main>
         <div class="weather-app-data">
           <div>
-            <h1>Paris</h1>
-            <p>
+            <h1 class="weather-app-city" id="city">Paris</h1>
+            <p class="weather-app-details">
               Tuesday 14:49, scattered clouds
               <br />
               Humidity: <strong> 66%</strong>, Wind: <strong>2:13km/h1</strong>
@@ -37,7 +39,7 @@
       </main>
 
       <footer>
-        This project was coded by Vanessa
+        This project was coded by
         <a href="https://app.netlify.com/user/settings" target="_blank"
           >Vanessa</a
         >
@@ -50,6 +52,8 @@
           >hosted on Netlify</a
         >
       </footer>
+
     </div>
+    <script src="index.js"></script>
   </body>
 </html>
