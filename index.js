@@ -42,7 +42,7 @@ function formatDate(date) {
 
 function searchCity(city) {
   let apiKey = "3f370f2fcfc8ab8924dbf44a3bcato1c";
-  let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}`;
+  let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=imperial`;
   axios.get(apiUrl).then(refreshWeather);
 }
 
@@ -52,15 +52,23 @@ function handleSearchSubmit(event) {
 
   searchCity(searchInput.value);
 }
+function getForecast(city) {
+  let apiKey = "3f370f2fcfc8ab8924dbf44a3bcato1c";
+  let apiUrl = `https://api.shecodes.io/weather/v1/forecast?query=${city}&key =${apiKey}&units=imperial`;
+  axios(apiUrl).then(displayForecast);
+}
 
 let searchFormElement = document.querySelector("#search-form");
 searchFormElement.addEventListener("submit", handleSearchSubmit);
 
 searchCity("Salt Lake City");
 
-function displayForecast() {
+function displayForecast(response) {
+  console.log(response.data);
+
   let days = ["Tue", "Wed", "Thurs", "Fri", "Sat"];
   let forecastHtml = "";
+  axios(apiUrl).then(displayForecast);
 
   days.forEach(function (day) {
     forecastHtml =
@@ -82,3 +90,5 @@ function displayForecast() {
   forecastElement.innerHTML = forecastHtml;
 }
 displayForecast();
+searchCity("Paris");
+getForecast("");
