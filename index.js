@@ -42,7 +42,7 @@ function formatDate(date) {
 
 function searchCity(city) {
   let apiKey = "3f370f2fcfc8ab8924dbf44a3bcato1c";
-  let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=imperial`;
+  let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}`;
   axios.get(apiUrl).then(refreshWeather);
 }
 
@@ -58,7 +58,7 @@ function formatDay(timestamp) {
 }
 function getForecast(city) {
   let apiKey = "3f370f2fcfc8ab8924dbf44a3bcato1c";
-  let apiUrl = `https://api.shecodes.io/weather/v1/forecast?query=${city}&key =${apiKey}&units=imperial`;
+  let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}`;
   axios(apiUrl).then(displayForecast);
 }
 
@@ -72,7 +72,6 @@ function displayForecast(response) {
 
   let days = ["Tue", "Wed", "Thurs", "Fri", "Sat"];
   let forecastHtml = "";
-  axios(apiUrl).then(displayForecast);
 
   response.data.daily.forEach(function (day, index) {
     if (index < 5) {
@@ -97,6 +96,5 @@ function displayForecast(response) {
   let forecastElement = document.querySelector("#forecast");
   forecastElement.innerHTML = forecastHtml;
 }
-displayForecast();
 searchCity("Paris");
 getForecast("");
