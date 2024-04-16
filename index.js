@@ -42,7 +42,7 @@ function formatDate(date) {
 
 function searchCity(city) {
   let apiKey = "3f370f2fcfc8ab8924dbf44a3bcato1c";
-  let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}`;
+  let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=imperial`;
   axios.get(apiUrl).then(refreshWeather);
 }
 
@@ -55,35 +55,33 @@ function handleSearchSubmit(event) {
 
 function formatDay(timestamp) {
   let date = new Date(timestamp * 1000);
+  let day = date.getDay();
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  return days[day];
 }
 function getForecast(city) {
   let apiKey = "3f370f2fcfc8ab8924dbf44a3bcato1c";
-  let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}`;
+  let apiUrl = `https://api.shecodes.io/weather/v1/forecast?query=${city}&key=${apiKey}&units=imperial`;
   axios(apiUrl).then(displayForecast);
 }
 
 let searchFormElement = document.querySelector("#search-form");
 searchFormElement.addEventListener("submit", handleSearchSubmit);
 
-searchCity("Salt Lake City");
-
 function displayForecast(response) {
-  console.log(response.data);
-
-  let days = ["Tue", "Wed", "Thurs", "Fri", "Sat"];
   let forecastHtml = "";
 
   response.data.daily.forEach(function (day, index) {
     if (index < 5) {
       forecastHtml += `
           <div class="weather-forecast-day">
-            <div class="weather-forecast-date">${formatDay(day.dt)}</div>
+            <div class="weather-forecast-date">${formatDay(day.time)}</div>
             <img src="${
               day.condition.icon_url
             }" class="weather-forecast-icon" /> 
             <div class="weather-forecast-temperatures">
               <div class="weather-forecast-temperature">
-                <strong>${day.temperature.minimum}°</strong>
+                <strong>${Math.round(day.temperature.minimum)}°</strong>
               </div>
               <div class="weather-forecast-temperature">${Math.round(
                 day.temperature.maximum
@@ -96,5 +94,5 @@ function displayForecast(response) {
   let forecastElement = document.querySelector("#forecast");
   forecastElement.innerHTML = forecastHtml;
 }
-searchCity("Paris");
-getForecast("");
+
+searchCity("Salt Lake City");
